@@ -1,0 +1,15 @@
+<url>
+<loc><%= pages_url %></loc>
+<lastmod><%= @pages.last.updated_at %> </lastmod>
+<changefreq>monthly </changefreq>
+<priority>1 </priority>
+</url>
+
+<% @pages.each do |object| %>
+    <url>
+    <loc><%= page_url(object) %></loc>
+    <lastmod><%= object.updated_at %> </lastmod>
+    <changefreq>monthly </changefreq>
+    <priority>1 </priority>
+    </url>
+<% end %>

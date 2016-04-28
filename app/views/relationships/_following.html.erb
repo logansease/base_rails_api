@@ -1,0 +1,11 @@
+<% target_id = "" if local_assigns[:target_id].nil? %>
+<% target_type = "" if local_assigns[:target_type].nil? %>
+
+
+<%= form_for(@object.user_relationships.find_by_user_id(@current_user),
+				:html => {:method => :delete, :id => "follow_button", :class => "" },
+			    :remote =>true) do |f| %>
+
+ 	<%= f.submit "following!" %>
+
+<% end%>

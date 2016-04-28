@@ -1,0 +1,13 @@
+<h1>All Comments
+  <%=link_to "for #{@target.name}", @target %>
+</h1>
+
+<ul class="index">
+
+  <% @objects.each do |object| %>
+      <%=render 'object', :object => object %>
+  <%end%>
+
+</ul> 
+
+	

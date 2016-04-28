@@ -1,0 +1,19 @@
+<h1>All</h1>
+
+<%if current_user and current_user.admin %>
+  <%= link_to "Add New", new_base_object_path %>
+<% end %>
+      
+<%= will_paginate @objects %> <!-- note you can tell it the object to paginate as an argument if not by convention -->
+
+<ul class="index">
+
+
+  <% @objects.each do |object| %>
+      <%=render 'object', :object => object %>
+  <%end%>
+
+</ul> 
+
+<%= will_paginate @objects%>
+	

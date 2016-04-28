@@ -1,0 +1,14 @@
+<li>
+
+  <%= link_to object.user.name, object.user %> rated
+  <% if object.target %>
+       <% link_to object.target.name, object.target %>
+  <% end %>
+  <%= object.value %>
+	
+	<% if current_user and current_user.admin? %>
+	| <%= link_to "delete", object, :method => :delete, :data => { :confirm => "Are you sure?"},
+									:title => "Delete #{object.id}"%>
+	<%end%>
+	   
+</li>

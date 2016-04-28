@@ -1,0 +1,40 @@
+<% if @object and @object.respond_to? :meta_title and @object.meta_title %>
+    <title><%= @object.meta_title %></title>
+<% else %>
+    <title><%= CONSTANTS[  :app_name] %> </title>
+<% end %>
+
+<% if @object and @object.respond_to? :meta_description and @object.meta_description %>
+    <meta name="description" content=" <%= @object.meta_description %>">
+<% else %>
+    <meta name="description" content="<%=CONSTANTS[  :app_description]%>">
+<%end %>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <%= csrf_meta_tag %>
+
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"/>
+    <![endif]-->
+
+
+    <% if Rails.env.production? %>
+        <%= render "layouts/analytics" %>
+
+    <% end %>
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">

@@ -1,0 +1,12 @@
+<h1>New Comment for <%=link_to @object.target.name, @object.target %></h1>
+
+<%= form_for(@object) do |f| %>
+
+<%= render 'fields', :f => f %>  
+
+<div class="actions">
+  <%= f.submit "Create", :class => "btn btn-primary"%>
+</div>
+
+<% end %>
+

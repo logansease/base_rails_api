@@ -1,0 +1,13 @@
+<h1>All</h1>
+
+<%if current_user and current_user.admin %>
+  <%= link_to "Add New", new_page_path %>
+<% end %>
+
+<ul class="index">
+
+  <% @pages.each do |object| %>
+      <%=render 'object', :object => object %>
+  <%end%>
+
+</ul>

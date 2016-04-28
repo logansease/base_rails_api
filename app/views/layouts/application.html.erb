@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <%= render "layouts/head" %>
+
+</head>
+	
+<body>
+
+    <div id="wrap">
+     <%= render 'layouts/header'  %>
+
+    <div class="container">
+
+		<section class="round">
+			<% flash.each do |key,value|%>
+			 	<div class="flash <%= key %>">
+				    <%= value %>
+				</div>
+			<%end%>
+
+        </section>
+
+		<%= yield %>
+    </div>
+  </div>
+		<%= render 'layouts/footer'  %>
+
+</body>
+</html>

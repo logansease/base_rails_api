@@ -1,0 +1,81 @@
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -65px;
+    padding: 0 0 65px;
+}
+
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+#footer {
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+}
+
+/* Footer styling */
+
+#footer {
+    background: none repeat scroll 0 0 #31363A;
+    color: #FFFFFF;
+    margin: 0px auto 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+/* footer nav */
+
+.footer-nav {
+    margin: 0 auto;
+    width:intrinsic; /* For Safari, see https://developer.mozilla.org/en-US/docs/CSS/width */
+    width:-moz-fit-content;
+    width:-webkit-fit-content;
+    width:fit-content;
+}
+.footer-nav > ul {
+    display: table;
+    margin: 0;
+}
+.footer-nav > ul > li {
+    display: table-cell;
+}
+.footer-nav > ul > li a {
+    display: block;
+    height: 30px;
+    line-height: 28px;
+    padding: 0 5px 0 5px;
+    color: #FFF;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: lowercase;
+    font-size: 20px;
+}
+.footer-nav > ul > li:hover, .footer-nav > ul > li a:hover {
+    color: #07afee;
+}
+.copyright {
+    font-size: 12px;
+}
+
+ul
+{
+    list-style-type: none;
+}
+
+li
+{
+    list-style-type: none;
+}

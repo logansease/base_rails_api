@@ -1,0 +1,94 @@
+class ExampleController < ApplicationController
+
+  def new
+    @object = Object.new
+
+  end
+
+  def create
+    @object = Object.new(get_request_as_json params, :object)
+
+    if @object.save
+
+      respond_to do |format|
+        format.html  {redirect_to @object}
+        format.json  { render :json => @object }
+      end
+
+    else
+      respond_to do |format|
+        format.html  {render 'new'}
+        format.json  { render :json => {:result => "Error"} }
+      end
+    end
+  end
+
+  def show
+    @title = 'Details'
+    id = params[:id]
+    @object = Object.find(id)
+
+    respond_to do |format|
+      format.html  #normal flow
+      format.json  { render :json => @object }
+    end
+
+  end
+
+  def edit
+    @title = "Edit"
+    @object = Object.find(id = params[:id])
+
+    respond_to do |format|
+      format.html  #normal flow
+      format.json  { render :json => @object }
+    end
+  end
+
+  def update
+    @object = Object.find(params[:id])
+
+    if @object.update_attributes(get_request_as_json params, :object)
+
+      respond_to do |format|
+        format.html  {redirect_to @object}
+        format.json  { render :json => @object }
+      end
+
+    else
+      respond_to do |format|
+        format.html  {render 'edit'}
+        format.json  { render :json => {:result => "Error"} }
+      end
+    end
+  end
+
+  def index
+
+      if !current_user or !current_user.admin?
+        deny_access
+        return
+      end
+
+
+    @objects = Object.all
+
+
+    respond_to do |format|
+      format.html  #normal flow
+      format.json  {render :json => @objects}
+    end
+  end
+
+  def destroy
+    object = Object.find(params[:id])
+
+    object.destroy
+
+    respond_to do |format|
+      format.html  {redirect_to objects_path, :flash => {:success => "Object Deleted"}}
+      format.json  {render :json => {:result => "success"}}
+    end
+  end
+
+end

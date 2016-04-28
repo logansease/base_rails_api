@@ -1,0 +1,10 @@
+<div class="bordered_box">
+<h2>
+<%= link_to "pages", "/pages"%>
+</h2>
+<ul>
+  <% @pages.each do |object| %>
+    <li><%= link_to object.title, object %></li>
+  <% end %>
+</ul>
+</div>

@@ -1,0 +1,21 @@
+<div class="col-md-4">
+  <h1>Sign up</h1>
+
+<%= form_for(@user) do |f| %>
+
+<%= render 'fields', :f => f %>  
+
+    <i class="disclaimer">
+      By pressing the button to sign up below, you are agreeing that you have read and agree to our  <%= link_to "Terms of Service", "#", :onclick => "$('#new_link_modal').modal('show')" %>
+    </i>
+
+<div class="actions">
+  <%= f.submit "Sign up"%>
+</div>
+<% end %>
+</div>
+
+<%= render "shared/modal", :modal_id => "new_link_modal", :modal_title => "Terms of Service", :modal_content => ( render "pages/content", :page => @tos_page ) %>
+
+
+

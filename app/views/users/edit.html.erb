@@ -1,0 +1,26 @@
+
+<div class="col-md-4">
+<h1>Edit user</h1>
+
+<%= form_for(@user) do |f| %>
+                            
+<!-- the argument :f below is to pass the f into the partial -->
+<%= render 'fields', :f => f%>
+
+<div class="actions">
+  <%= f.submit "Update"%>
+</div>
+
+<% end %>
+</div>
+  <div class="col-md-4 well">
+	 <%= image_for @user%>
+	<!-- <a href = "http://gravatar.com/emails" target="_blank">change</a> -->
+
+  <% if current_user and current_user == @user %>
+  <div id="link_form">
+  	<%= render 'fb_link_form'%>
+  </div>
+  <% end %>
+</div>
+

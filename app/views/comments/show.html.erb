@@ -1,0 +1,20 @@
+
+  <div>
+    <% if current_user and current_user.admin %>
+         <%= link_to "Edit", edit_comment_path(@object) %>
+
+        <% if current_user and current_user.admin? %>
+            | <%= link_to "delete", @object, :method => :delete, :data => { :confirm => "Are you sure?"},
+                          :title => "Delete #{@object.name}"%>
+        <%end%>
+    <% end %>
+
+    <p><strong>Content:</strong> <%= @object.content%> (id: <%= @object.id %> )</p>
+
+    <p><strong>Owning User:</strong> <%= @object.user.name%></p>
+
+    <% if @object.target %>
+        <p><strong> Target:</strong> <%= @object.target.name%> </p>
+    <% end %>
+
+  </div>

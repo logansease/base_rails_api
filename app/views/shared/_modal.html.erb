@@ -1,0 +1,18 @@
+<div id="<%= modal_id %>" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="grey_text centered">
+          <a class="icon-cancel right_padding left" data-dismiss="modal"></a>
+          <%= modal_title if modal_title%></h3>
+      </div>
+      <div class="modal-body">
+        <%= modal_content %>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

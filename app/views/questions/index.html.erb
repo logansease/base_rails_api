@@ -1,0 +1,15 @@
+<h1>All</h1>
+
+<%if current_user and current_user.admin %>
+  <%= link_to "Add New", new_question_path %>
+<% end %>
+      
+
+<ul class="index">
+
+  <% @objects.each do |object| %>
+      <%=render 'object', :object => object %>
+  <%end%>
+
+</ul> 
+

@@ -1,0 +1,20 @@
+<% target_id = nil if local_assigns[:target_id].nil? %>
+<% target_type = nil if local_assigns[:target_type].nil? %>
+
+<div id="follow_button" class="">
+  <% if !current_user %>
+     <%= button_to "follow", signin_path + "?redirect_to=" + request.fullpath, :method => "get" %>
+  <% else %>
+
+  <%= form_for(current_user.relationships.build(:target_id => target_id, :target_type => target_type ),
+               :html => { :id => "follow_form"}, :remote =>true ) do |f| %>
+
+      <%= f.hidden_field :target_id %>
+      <%= f.hidden_field :target_type %>
+      <%= f.submit "follow" %>
+
+  <% end%>
+
+  <% end %>
+
+</div>

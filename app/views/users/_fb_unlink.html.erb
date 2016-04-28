@@ -1,0 +1,7 @@
+
+<%= form_tag unlink_provider_user_path(current_user), {:name=>'unlink_form'}  do %>
+  <%= hidden_field_tag :provider_name, "facebook" %>
+    <p>
+          <%= link_to facebook_logo, "#", {:onclick => "document.unlink_form.submit();"} %>  Unlink
+    </p>
+<% end %>

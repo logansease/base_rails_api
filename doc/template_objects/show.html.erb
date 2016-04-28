@@ -1,0 +1,9 @@
+
+  <div>
+    <% if current_user and current_user.admin %>
+         <%= link_to "Edit", edit_base_category_path(@object) %>
+    <% end %>
+
+    <p><strong>Object Name:</strong> <%= @object.name%> (id: <%= @object.id %> )</p>
+
+  </div>

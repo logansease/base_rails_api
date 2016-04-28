@@ -1,0 +1,19 @@
+<% if signed_in?%>
+    <p>We are currently in development. Pardon the mess.</p>
+	<table class="front" summary="for signed in users">
+		   <tr>
+
+			<td class="sidebar round">
+				<%= render "shared/sidebar_shared"%>
+			</td>
+		   </tr>
+	</table>
+
+<% else %>
+
+
+<p>We are currently in development. Pardon the mess.</p>
+
+<%= link_to "Sign up now!", signup_path, :class => "signup_button round"%>      
+
+<% end %>

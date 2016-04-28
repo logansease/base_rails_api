@@ -1,0 +1,13 @@
+<div id="footer" class="navbar-inverse" role="navigation">
+  <nav class="footer-nav">
+    <ul>
+      <li><%= link_to "About", about_path %></li>
+ 			<li><%= link_to "Contact", contact_path %></li>
+ 			<li><%= link_to "News", '#'%></li>
+    </ul>
+  </nav>
+  <p class="copyright">Copyright &copy; 2014 <%= CONSTANTS[  :app_name] %>. All rights reserved.</p>
+  <%= link_to 'site map', "/sitemap", :class => "copyright"%>
+  <%= link_to 'xml site map', "/sitemap_xml", :class => "copyright"%>
+</div>
+	   

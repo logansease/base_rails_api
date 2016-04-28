@@ -1,0 +1,16 @@
+
+  <div>
+    <% if current_user and current_user.admin %>
+         <%= link_to "Edit", edit_rating_path(@object) %>
+    <% end %>
+
+    <p><strong>Owning User:</strong> <%= @object.user.name%></p>
+
+    <p><strong>Rating:</strong> <%= @object.value%></p>
+    <p><strong>Rating Comment:</strong> <%= @object.rating_text%></p>
+
+    <% if @object.target %>
+        <p><strong> Target:</strong> <%= @object.target.name%> </p>
+    <% end %>
+
+  </div>

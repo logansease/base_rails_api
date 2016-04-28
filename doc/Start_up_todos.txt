@@ -1,0 +1,30 @@
+-Set config constants
+-define db structure
+-add db to schema
+-create model files
+-create controller files with basic routes
+-add basic routes / resources
+-add html files with basic implementation
+
+-advanced models with relationships
+-add full edits for each resource
+-add full views for each resource
+add relationships to views and edits
+
+advanced routes for each resource
+add nested object route logic into controllers and views
+advanced views and edits for each resource with controller logic
+complete flow
+validation
+permissions
+
+advanced layouts and graphics
+home page
+misc pages
+
+-get messages working
+-add author follows
+default permissions
+requested and granted permissions
+banner icons
+wysiwyg

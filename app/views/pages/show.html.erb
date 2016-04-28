@@ -1,0 +1,11 @@
+
+
+  <% if current_user and current_user.admin %>
+     <%= link_to "Edit", edit_page_path(@object) %>
+  <% end %>
+
+  <div class="page_content">
+    <%= @object.content.html_safe if @object and !@object.content.blank? %>
+  </div>
+
+

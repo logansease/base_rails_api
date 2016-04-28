@@ -1,0 +1,22 @@
+<h1>Ratings
+    <% if @comment %>
+        for <%= link_to @comment.content, @comment %>
+    <% elsif @question %>
+        for <%= link_to @question.name, @question %>
+    <% end %>
+
+  <% if @question %>
+      <%= link_to "+", new_question_rating_path(@question) %>
+  <% end %>
+
+</h1>
+
+<ul class="index">
+
+
+  <% @objects.each do |object| %>
+      <%=render 'object', :object => object %>
+  <%end%>
+
+</ul> 
+

@@ -1,0 +1,12 @@
+<h1>New Object</h1>
+
+<%= form_for(@object) do |f| %>
+
+<%= render 'fields', :f => f %>  
+
+<div class="actions">
+  <%= f.submit "Create", :class => "btn btn-primary"%>
+</div>
+
+<% end %>
+

@@ -1,0 +1,18 @@
+upgrade rails, ruby
+rvm
+rake rails:update:bin
+
+gem 'protected_attributes'
+
+routes, add to match , via: [:get, :post]
+
+remove default scopes
+regular expressions with ^
+move from relationship conditions to -> where
+replace find_or_create_by... to ()
+
+assets--
+move to app/assets
+comment out config.action_dispatch.x_sendfile_header = "X-Sendfile"
+config.eager_load = true in prod, false in dev and test
+

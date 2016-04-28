@@ -1,0 +1,4 @@
+$("#follow_button").replaceWith("<%= escape_javascript(render('relationships/follow',:target_id => @target_id, :target_type => @target_type  ))%>")
+$("#follower_count").html("<%= @object.followers.count%>")
+
+

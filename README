@@ -1,0 +1,175 @@
+
+This is a ruby on rails web app and restful api for the menu application. It is based on the starter rails application by Logan Sease.
+
+To get started:
+
+\curl -sSL https://get.rvm.io | bash
+rvm install 2.1.5
+rvm use 2.1.5
+gem install bundler
+git clone [repo]
+cd [repo]
+(if prompted to run an rvm create command, do what it requests)
+bundle install
+gem install heroku
+rake db:reset
+rails s
+
+=====================
+
+Note: The documentation below not be as thorough as extensive generated documentation, but it is much easier to view at a glance
+and easier to create and maintain and if we’re all on the same page it is just as insightful.
+
+
+A GENERAL GUIDELINE FOR CALLING RESTFUL API ENDPOINTS
+
+All the endpoints are implemented through paths that follows this standard REST routing pattern.
+By using standard REST, Available endpoints as well as input and responses can be inferred by examining the application data model (schema.rb)
+
+POST / [plural model name] - create a new model, input a json representation of the new model, will return the newly created model
+PUT / [plural model name] / id  - update, input a json representation of the model, will return the updated model
+GET / [plural model name] / id - get a specific item, will return a json reprentation of the model
+GET / [plural model name] - index, or a list of items, possibly filtered by parameters, will return a json array of the model objects
+DELETE / plural model name / id - delete an object
+
+Some example Paths:
+POST /tokens?username=lsease@gmail.com&password=password
+GET /restaurants?access_token=[token]?format=json
+
+
+NESTED JSON OBJECTS:
+Note that objects rendered as json may include nested objects and relationships, but these must be explicitly defined in the controllers. Response objects that include nested objects in their response json will be documented below with the following syntax:
+Parent => (includes Children)
+
+JSON FORMAT:
+You will need to throw a ?format=json or a format type header of application/json in your api call URL at the end to tell the api to render json instead of HTML
+
+AUTHENTICATED REQUESTS:
+Once logged in, when performing authenticated requests, pass in an access_token parameter.
+You may also pass an "Authorization" header with "Bearer [access token]"
+For 3rd party auth requests, Pass in a "Provider [provider name]" heeader.
+
+NESTED RESOURCES:
+Some resources are defined as nested resources in routes.rb and can be accessed via nested routes, so for example, if a child is a nested resource of a parent, you would do
+POST /parents/1/children to add a new child to that parent
+and get /parents/1/children to list all of that parents children
+This would be represented in routes.rb by
+resources :parents do
+	resources :children
+end
+
+
+=============
+
+Commonly Used Example Endpoints:
+
+--LOGIN:
+Post /tokens
+Params: username, password
+Returns a new Auth Token
+
+-LOGOUT:
+Get /tokens/logout
+Params: None
+Returns: Success
+
+-GET A USER:
+Get /users/[user_id]
+Returns: User => ( including following_menu_items, following_restaurants)
+Auth required
+
+-SIGNUP:
+Post /users
+Params: a user object including a password_confirmation field that matches the password field
+Returns: Access Token => (including User )
+
+-LIST Questions
+Get /questions
+Returns an array of all questions -> ( includes comments -> (includes user) )
+
+-GET A Question
+Get /questions/[question_id]
+Returns a question
+
+-COMMENT ON A Question:
+Post /questions/[question_id]/comments
+Params: a comment object
+Returns: Newly created comment
+Requires Auth Token
+
+-EDIT A Question COMMENT:
+Put /comments/[comment_id]
+Params: comment object
+Returns: updated comment
+Requires Auth Token
+
+-DELETE A Question COMMENT:
+Delete /comments/[comment_id]
+Requires Auth Token
+
+
+-RATE A Question:
+Post users/[user_id]/questions/[question_id/ratings
+Params: a rating object
+Returns: Newly created rating
+Requires Auth Token
+
+DELETE A Question RATING:
+Delete /users/[:user_id]/questions/[question_id]/ratings
+Requires Auth Token
+
+-EDIT A Question RATING:
+Put /users/[user_id]/questions/[question)id/ratings
+Params: a rating object
+Returns: Newly created rating
+Requires Auth Token
+
+-FOLLOW A Question:
+Post /users/[user_id]/questions/[questions_id]/relationships
+Params: {}
+Returns: new relationship object
+Requires Auth Token
+
+-UNFOLLOW A Question
+Delete /users/[:user_id]/questions/[question_id]/relationships
+Params: none
+Returns "Success"
+Requires Auth Token
+
+
+
+=====================
+
+Starter application
+
+This project contains tons of awesome stuff that will help you get started with a new Ruby on Rails web app
+very quickly and easily.
+Some of the things already included are:
+
+- Authentication and User Registration
+- Password Recovery
+- Email Confirmation
+- oAUTH
+- Parsing and returning json for API Requests
+- General emailing functionality
+- Facebook Login and Sign up. Link and unlink, expandable to new auth providers
+- A Basic User Settings page
+- An Admin Panel and an admin type user
+- Boot Strap integrated
+- A nice layout with header and footer
+- jquery included
+- An image uploader
+- A simple WYSIWYG editor
+- A generic relaionship & connection functionality
+- A "Pages" mechanism to allow you CMS functionality for simple pages
+- A Basic Site map to help with SEO
+- Disqus ready to be integrated
+- An easy to integrate modal function
+- a social sharing mechanism
+- a basic video thumbnail partial
+- Basic encryption and decryption helpers
+- Gravatar and fb image tags for user images
+- A simple, scalable mechanism for commenting, favoriting or following and rating generic objects.
+
+
+Don't forget to initialize settings found in fog.rb, app_constants.rb and setup_mail.rb and session_store.rb

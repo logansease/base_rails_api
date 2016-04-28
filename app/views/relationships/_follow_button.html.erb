@@ -1,0 +1,7 @@
+<% if current_user and @object.followers.include? current_user %>
+    <%= render 'relationships/following', :target_id => target_id, :target_type => target_type  %>
+    <span id="follower_count"><%= @object.followers.count %></span>
+<%else %>
+    <%= render 'relationships/follow', :target_id => target_id, :target_type => target_type  %>
+    <span id="follower_count"><%= @object.followers.count %></span>
+<%end%>

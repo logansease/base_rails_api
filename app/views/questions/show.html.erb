@@ -1,0 +1,32 @@
+
+  <div>
+    <% if current_user and current_user.admin %>
+         <%= link_to "Edit", edit_question_path(@object) %>
+
+        <% if current_user and current_user.admin? %>
+            | <%= link_to "delete", @object, :method => :delete, :data => { :confirm => "Are you sure?"},
+                          :title => "Delete #{@object.name}"%>
+        <%end%>
+    <% end %>
+
+    <h1><strong><%= @object.name%></strong></h1>
+    <h3><%=@object.text %></h3>
+
+    <strong>Comments
+        <%= link_to "+", new_question_comment_path(@object) %>
+    </strong>
+    <% @object.comments.each do |comment| %>
+        <%= render "comments/object", :object => comment %>
+    <% end %>
+
+    <div>
+    <strong>Ratings
+      <%= link_to "+", new_question_rating_path(@object) %>
+    </strong>
+    ( <%= @object.ratings.count %> )
+    </div>
+
+    <p><%=render "relationships/follow_button", :target_id => @object.id, :target_type => RELATIONSHIP_TYPE_QUESTION %></p>
+
+
+  </div>

@@ -1,0 +1,18 @@
+<%= render 'shared/error_messages', :object => f.object %>   
+
+<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+<script type="text/javascript">
+    bkLib.onDomLoaded(function() {
+           new nicEditor().panelInstance('content');
+    });
+</script>
+
+<div class="field">
+  <%= f.label :title%> <br/>
+  <%= f.text_field :title%>
+</div>     
+
+<div class="field">
+  <%= f.label :content%>
+  <%= f.text_area :content, :cols => 80, :rows => 25, :id => "content", :class => "full_width_percent"%>
+</div>

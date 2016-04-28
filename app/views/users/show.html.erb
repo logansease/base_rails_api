@@ -1,0 +1,20 @@
+
+
+		<div class="main">
+			 <h1> 
+			   <%= image_for @user %>
+			   <%= @user.name %>
+
+			</h1>    
+        </div>
+
+        <div class="main">
+            <strong>Favorites</strong>
+            <li>
+              <% @user.favorite_questions.each do |question| %>
+                <%= render "questions/object", :object => question %>
+              <% end %>
+            </li>
+        </div>
+
+
