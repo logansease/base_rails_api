@@ -1,7 +1,7 @@
 
   <div>
     <% if current_user and current_user.admin %>
-         <%= link_to "Edit", edit_question_path(@object) %>
+         <%= link_to "Edit", edit_spot_path(@object) %>
 
         <% if current_user and current_user.admin? %>
             | <%= link_to "delete", @object, :method => :delete, :data => { :confirm => "Are you sure?"},
@@ -13,7 +13,7 @@
     <h3><%=@object.text %></h3>
 
     <strong>Comments
-        <%= link_to "+", new_question_comment_path(@object) %>
+        <%= link_to "+", new_spot_comment_path(@object) %>
     </strong>
     <% @object.comments.each do |comment| %>
         <%= render "comments/object", :object => comment %>
@@ -21,12 +21,12 @@
 
     <div>
     <strong>Ratings
-      <%= link_to "+", new_question_rating_path(@object) %>
+      <%= link_to "+", new_spot_rating_path(@object) %>
     </strong>
     ( <%= @object.ratings.count %> )
     </div>
 
-    <p><%=render "relationships/follow_button", :target_id => @object.id, :target_type => RELATIONSHIP_TYPE_QUESTION %></p>
+    <p><%=render "relationships/follow_button", :target_id => @object.id, :target_type => RELATIONSHIP_TYPE_SPOT %></p>
 
 
   </div>

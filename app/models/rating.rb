@@ -8,12 +8,12 @@ class Rating < ActiveRecord::Base
   validates :target_id, :presence => true
 
   belongs_to :user
-  belongs_to :rated_questions, -> {where(ratings: { target_type: RELATIONSHIP_TYPE_QUESTION})}, :foreign_key => "target_id", :class_name => "Question"
+  belongs_to :rated_spots, -> {where(ratings: { target_type: RELATIONSHIP_TYPE_SPOT})}, :foreign_key => "target_id", :class_name => "Spot"
 
 
   def target
-    if target_type == RELATIONSHIP_TYPE_QUESTION
-      Question.find(target_id)
+    if target_type == RELATIONSHIP_TYPE_SPOT
+      Spot.find(target_id)
     end
   end
 

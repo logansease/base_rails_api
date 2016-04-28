@@ -19,11 +19,11 @@ class Relationship < ActiveRecord::Base
   validates :target_type, :presence => true
 
   belongs_to :follower, :foreign_key => "user_id", :class_name => "User"
-  belongs_to :followed_questions, -> {where(relationships: { target_type: RELATIONSHIP_TYPE_QUESTION })}, :foreign_key => "target_id", :class_name => "Question"
+  belongs_to :followed_spots, -> {where(relationships: { target_type: RELATIONSHIP_TYPE_SPOT })}, :foreign_key => "target_id", :class_name => "Spot"
 
   def target
-    if target_type == RELATIONSHIP_TYPE_QUESTION
-      Question.find(target_id)
+    if target_type == RELATIONSHIP_TYPE_SPOT
+      Spot.find(target_id)
     end
   end
 

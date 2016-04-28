@@ -8,23 +8,21 @@ class CommentsController < ApplicationController
     @object = Comment.new
 
     #load nested resources
-    if params[:question_id]
-      @target = Question.find(params[:question_id])
+    if params[:spot_id]
+      @target = Spot.find(params[:spot_id])
       @object.target_id = @target.id
-      @object.target_type = RELATIONSHIP_TYPE_QUESTION
+      @object.target_type = RELATIONSHIP_TYPE_SPOT
     end
-
-
   end
 
   def create
     @object = Comment.new(get_request_as_json params, :comment)
 
     #load nested resources
-    if params[:question_id]
-      @target = Question.find(params[:question_id])
+    if params[:spot_id]
+      @target = Spot.find(params[:spot_id])
       @object.target_id = @target.id
-      @object.target_type = RELATIONSHIP_TYPE_QUESTION
+      @object.target_type = RELATIONSHIP_TYPE_SPOT
     end
 
     @object.user = current_user
@@ -67,12 +65,6 @@ class CommentsController < ApplicationController
   end
 
   def update
-    #load the user
-    if params[:user_id]
-      user_id = params[:user_id]
-    elsif current_user
-      user_id = current_user.id
-    end
 
     #load by id
     if(params[:id])
@@ -100,8 +92,8 @@ class CommentsController < ApplicationController
     @objects = Comment.all
 
     #load nested resources
-    if params[:question_id]
-      @target = Question.find(params[:question_id])
+    if params[:spot_id]
+      @target = Spot.find(params[:spot_id])
       @objects = @target.comments
     end
 

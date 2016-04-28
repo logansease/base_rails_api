@@ -9,10 +9,10 @@
         </div>
 
         <div class="main">
-            <strong>Favorites</strong>
+            <strong>Favorite Spots</strong>
             <li>
-              <% @user.favorite_questions.each do |question| %>
-                <%= render "questions/object", :object => question %>
+              <% @user.favorite_spots.each do |spot| %>
+                <%= render "spots/object", :object => spot %>
               <% end %>
             </li>
         </div>

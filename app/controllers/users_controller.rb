@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include ApplicationHelper
   require 'cgi'
 
-  before_filter :authenticate, :except => [:password_recovery, :send_password_recovery,:send_activation, :activate,:show, :new, :create]
+  before_filter :authenticate, :except => [:provider_id, :password_recovery, :send_password_recovery,:send_activation, :activate,:show, :new, :create]
   before_filter :correct_user, :only => [:show,:edit, :update]
   before_filter :admin_user, :only => [:index,:destroy]
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html  #normal flow
-      format.json  { render :json => @user, :include => [:following_menu_items, :following_restaurants] }
+      format.json  { render :json => @user }
     end
 
   end
@@ -181,9 +181,10 @@ class UsersController < ApplicationController
   def unlink_provider
 
     message = "Unlink Failed"
-
-    if(params[:provider_name] and current_user)
-      e = ExternalAuthProvider.find_by :provider_type => params[:provider_name], :user_id => current_user.id
+    u = current_user
+    puts u.id
+    if(params[:provider_type] and current_user and current_user.id == params[:id].to_i)
+      e = ExternalAuthProvider.find_by :provider_type => params[:provider_type], :user_id => current_user.id
       if e and e.delete
         message = "Unlink Successful"
       end
@@ -192,6 +193,19 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html  {redirect_to :back, :flash => {:success => message}}
       format.json  { render :json => message}
+    end
+
+  end
+
+  def provider_id
+
+    e = ExternalAuthProvider.find_by :provider_type => params[:provider_type], :user_id => params[:id]
+
+    if !e
+      response.code = 403
+      render :text => "Not Found"
+    else
+      render :text => e.provider_id
     end
 
   end

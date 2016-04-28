@@ -5,7 +5,7 @@ class ExternalAuthProvider < ActiveRecord::Base
 
   def ExternalAuthProvider.fb_id_for fb_token
     #call graph api /me/fields=id, return id
-    request_path = "https://graph.facebook.com/v2.5/me?fields=id&access_token=#{fb_token}"
+    request_path = "https://graph.facebook.com/v2.6/me?fields=id&access_token=#{fb_token}"
 
       response = open(request_path).read
       json = JSON.parse(response)

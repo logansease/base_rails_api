@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
   validates :target_id, :presence => true
 
   belongs_to :user
-  belongs_to :question_comments, -> {where(comments: { target_type: RELATIONSHIP_TYPE_QUESTION })}, :foreign_key => "target_id", :class_name => "Question"
+  belongs_to :spot_comments, -> {where(comments: { target_type: RELATIONSHIP_TYPE_SPOT })}, :foreign_key => "target_id", :class_name => "Spot"
 
   has_many :ratings, -> { where target_type: RELATIONSHIP_TYPE_COMMENT},
            :dependent => :destroy,
@@ -15,8 +15,8 @@ class Comment < ActiveRecord::Base
   default_scope { order('created_at DESC') }
 
   def target
-    if target_type == RELATIONSHIP_TYPE_QUESTION
-      Question.find(target_id)
+    if target_type == RELATIONSHIP_TYPE_SPOT
+      Spot.find(target_id)
     end
   end
 

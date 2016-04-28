@@ -1,13 +1,13 @@
-class QuestionsController < ApplicationController
+class SpotsController < ApplicationController
 
-  before_filter :admin_user, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :admin_user, :only => [:destroy]
 
   def new
-    @object = Question.new
+    @object = Spot.new
   end
 
   def create
-    @object = Question.new(get_request_as_json params, :question)
+    @object = Spot.new(get_request_as_json params, :spot)
 
     if @object.save
 
@@ -27,18 +27,18 @@ class QuestionsController < ApplicationController
   def show
     @title = 'Details'
     id = params[:id]
-    @object = Question.find(id)
+    @object = Spot.find(id)
 
     respond_to do |format|
       format.html  #normal flow
-      format.json  { render :json => @object, :include => [{:comments => {:include => :user}}, :ratings,], :user_id => current_user_id }
+      format.json  { render :json => @object }
     end
 
   end
 
   def edit
     @title = "Edit"
-    @object = Question.find(id = params[:id])
+    @object = Spot.find(id = params[:id])
 
     respond_to do |format|
       format.html  #normal flow
@@ -47,9 +47,9 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @object = Question.find(params[:id])
+    @object = Spot.find(params[:id])
 
-    if @object.update_attributes(get_request_as_json params, :question)
+    if @object.update_attributes(get_request_as_json params, :spot)
 
       respond_to do |format|
         format.html  {redirect_to @object}
@@ -66,31 +66,31 @@ class QuestionsController < ApplicationController
 
   def index
 
-    @objects = Question.all
+    @objects = Spot.all
 
     respond_to do |format|
       format.html  #normal flow
-      format.json  {render :json => @objects, :include => [{:comments => {:include => :user}}, ], :user_id => current_user_id}
+      format.json  {render :json => @objects}
     end
   end
 
   def favorites
-    @objects = current_user.favorite_questions
+    @objects = current_user.favorite_spots
 
     respond_to do |format|
       format.html  #normal flow
-      format.json  {render :json => @objects, :include => [{:comments => {:include => :user}}], :user_id => current_user_id }
+      format.json  {render :json => @objects }
     end
 
   end
 
   def destroy
-    object = Question.find(params[:id])
+    object = Spot.find(params[:id])
 
     object.destroy
 
     respond_to do |format|
-      format.html  {redirect_to questions_path, :flash => {:success => "Object Deleted"}}
+      format.html  {redirect_to spots_path, :flash => {:success => "Object Deleted"}}
       format.json  {render :json => {:result => "success"}}
     end
   end

@@ -8,9 +8,9 @@ class RatingsController < ApplicationController
     @object = Rating.new
 
     #set the target based on id provided
-    if params[:question_id]
-      @object.target_id = params[:question_id]
-      @object.target_type = RELATIONSHIP_TYPE_QUESTION
+    if params[:spot_id]
+      @object.target_id = params[:spot_id]
+      @object.target_type = RELATIONSHIP_TYPE_SPOT
     end
 
   end
@@ -19,9 +19,9 @@ class RatingsController < ApplicationController
     @object = Rating.new(get_request_as_json params, :rating)
 
     #set the target based on id provided
-    if params[:question_id]
-      @object.target_id = params[:question_id]
-      @object.target_type = RELATIONSHIP_TYPE_QUESTION
+    if params[:spot_id]
+      @object.target_id = params[:spot_id]
+      @object.target_type = RELATIONSHIP_TYPE_SPOT
     end
 
     if params[:user_id]
@@ -80,8 +80,8 @@ class RatingsController < ApplicationController
       @object = Rating.find(params[:id])
 
       #load for the menu item
-    elsif params[:question_id]
-      objects = Rating.where(:target_id => params[:question_id]).where(:target_type => RELATIONSHIP_TYPE_QUESTION).where(:user_id => user_id)
+    elsif params[:spot_id]
+      objects = Rating.where(:target_id => params[:question_id]).where(:target_type => RELATIONSHIP_TYPE_SPOT).where(:user_id => user_id)
       if objects and objects.count > 0
         @object = objects.first
       end
@@ -106,9 +106,9 @@ class RatingsController < ApplicationController
 
     @objects = Rating.all
 
-    if params[:question_id]
-      @objects = @objects.where(:target_id => params[:question_id]).where(:target_type => RELATIONSHIP_TYPE_QUESTION)
-      @question = Question.find params[:question_id]
+    if params[:spot_id]
+      @objects = @objects.where(:target_id => params[:spot_id]).where(:target_type => RELATIONSHIP_TYPE_SPOT)
+      @question = Question.find params[:spot_id]
     end
 
     respond_to do |format|
@@ -130,8 +130,8 @@ class RatingsController < ApplicationController
       object = Rating.find(params[:id])
 
       #load for the menu item
-    elsif params[:question_id]
-      objects = Rating.where(:target_id => params[:question_id]).where(:target_type => RELATIONSHIP_TYPE_QUESTION).where(:user_id => user_id)
+    elsif params[:spot_id]
+      objects = Rating.where(:target_id => params[:spot_id]).where(:target_type => RELATIONSHIP_TYPE_SPOT).where(:user_id => user_id)
       if objects and objects.count > 0
         object = objects.first
       end

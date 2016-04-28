@@ -6,9 +6,9 @@ class RelationshipsController < ApplicationController
     relationship = Relationship.new(get_request_as_json params, :relationship)
 
     #set the target based on id provided
-    if params[:question_id]
-      relationship.target_id = params[:question_id]
-      relationship.target_type = RELATIONSHIP_TYPE_QUESTION
+    if params[:spot_id]
+      relationship.target_id = params[:spot_id]
+      relationship.target_type = RELATIONSHIP_TYPE_SPOT
     end
 
     #set the user
@@ -37,8 +37,8 @@ class RelationshipsController < ApplicationController
 
   def show
 
-    if params[:question_id] and current_user
-      @object = Relationship.find_by :target_type => RELATIONSHIP_TYPE_QUESTION, :user_id => current_user.id, :target_id => params[:question_id]
+    if params[:spot_id] and current_user
+      @object = Relationship.find_by :target_type => RELATIONSHIP_TYPE_SPOT, :user_id => current_user.id, :target_id => params[:spot_id]
     end
 
     respond_to do |format|
@@ -61,8 +61,8 @@ class RelationshipsController < ApplicationController
       object = Relationship.find(params[:id])
 
     #load for menu item
-    elsif params[:question_id]
-      object = Relationship.find_by(:target_id => params[:question_id], :target_type => RELATIONSHIP_TYPE_QUESTION, :user_id => user_id)
+    elsif params[:spot_id]
+      object = Relationship.find_by(:target_id => params[:spot_id], :target_type => RELATIONSHIP_TYPE_SPOT, :user_id => user_id)
     end
 
     #hold on to our variables for future ajax calls

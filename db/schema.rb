@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20120512222955) do
 
 
-  create_table "questions", force: true do |t|
+  create_table "spots", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
@@ -75,10 +75,11 @@ ActiveRecord::Schema.define(version: 20120512222955) do
   create_table "tokens", force: true do |t|
     t.string  "hashed_access_token",  null: false
     t.string  "hashed_refresh_token"
-    t.date    "expires_on"
-    t.date    "refresh_by"
+    t.datetime    "expires_on"
+    t.datetime    "refresh_by"
     t.integer "user_id",              null: false
     t.string  "provider"
+    t.datetime "created_at",  null: false
   end
 
   create_table "users", force: true do |t|

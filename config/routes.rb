@@ -12,7 +12,8 @@ SampleApp::Application.routes.draw do
   resources :users do
     member do
       get :following, :followers       #makes users/1/following and following_user_path
-      post :unlink_provider
+      delete :unlink_provider
+      get :provider_id
     end
     collection do
       post :send_password_recovery
@@ -35,7 +36,7 @@ SampleApp::Application.routes.draw do
     end
   end
 
-  resources :questions do
+  resources :spots do
     resources :comments
     resources :ratings
   end

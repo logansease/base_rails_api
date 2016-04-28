@@ -35,16 +35,15 @@ class User < ActiveRecord::Base
                        
   before_save :encrypt_password
 
-  has_many :answers
   has_many :tokens
   has_many :external_auth_providers
 
   #relationships
   has_many :relationships
-  has_many :question_relationships, -> { where target_type: RELATIONSHIP_TYPE_QUESTION }, :dependent => :destroy,
+  has_many :spot_relationships, -> { where target_type: RELATIONSHIP_TYPE_SPOT }, :dependent => :destroy,
            :foreign_key => "user_id",
            :class_name => "Relationship"
-  has_many :favorite_questions,:through => :question_relationships, :source => :followed_questions
+  has_many :favorite_spots,:through => :spot_relationships, :source => :followed_spots
 
   #serialization, remove the user password
   # Exclude password info from json output.

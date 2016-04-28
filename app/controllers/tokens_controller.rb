@@ -15,7 +15,7 @@ class TokensController < ApplicationController
     end
 
     if token.save
-      render json: token, :methods => [:access_token, :refresh_token], :except => [:hashed_access_token, :hashed_refresh_token]
+      render json: token, :include => :user, :methods => [:access_token, :refresh_token], :except => [:hashed_access_token, :hashed_refresh_token]
     else
       render :json => {:errors => "invalid login"}
     end
@@ -28,6 +28,40 @@ class TokensController < ApplicationController
     else
       render :json => {:errors => "refresh token invalid"}
     end
+  end
+
+  def fb_canvas
+    signed = params[:signed_request]
+    fb_secret = CONSTANTS[  :fb_secret]
+
+    request_data = parse_signed_request fb_secret, signed
+
+    access_token = request_data["oauth_token"]
+    #fb_id = request_data[:user_id]
+
+    session[:canvas] = true
+
+    temp_token = Token.new
+    temp_token.access_token= access_token
+    temp_token.provider = PROVIDER_FACEBOOK
+
+    if current_user
+      temp_user = current_user
+    else
+      temp_user = User.from_external_token temp_token.access_token, temp_token.provider
+    end
+
+    begin
+      token = do_external_auth temp_user, temp_token
+      sign_in token.user
+    rescue => error
+    end
+    #set up the page
+    @full_width = true
+    @include_itunes_meta = true
+
+    #render
+    render 'pages/home'
   end
 
   def web_external_auth
@@ -45,9 +79,9 @@ class TokensController < ApplicationController
     begin
       token = do_external_auth temp_user, temp_token
       sign_in token.user
-      redirect_to :back
+      redirect_to (request.env['HTTP_REFERER'] || random_questions_path)
     rescue => error
-      redirect_to root_path, :flash => {:errors => [error]}
+      redirect_to root_path, :flash => {:errors => "Unable to link. This account may be linked with another user."}
     end
 
   end
@@ -56,7 +90,9 @@ class TokensController < ApplicationController
 
     temp_token = Token.new(params[:token])
 
-    if params[:user]
+    if params[:user][:id] and current_user and current_user.id and current_user.id == params[:user][:id]
+      temp_user = User.find params[:user][:id]
+    elsif params[:user]
       temp_user = User.new(params[:user])
     else
       temp_user = User.from_external_token temp_token.access_token, temp_token.provider
@@ -71,9 +107,10 @@ class TokensController < ApplicationController
     end
   end
 
+
   def destroy
-    if current_user.token
-      current_user.token.delete
+    if current_user and @token
+      Token.find_by_unhashed_token(@token).delete
     end
     render :json => {:result => "success"}
   end
@@ -126,6 +163,9 @@ class TokensController < ApplicationController
 
     end
 
+    #load stuff about the user
+    #user.about_me = temp_user.about_me if !user.about_me
+
     #validate the everything saves correctly and link the new token with the user
     if user.save! and temp_token.user = user and temp_token.save!
 
@@ -139,6 +179,9 @@ class TokensController < ApplicationController
         e.save!
       end
 
+      # add all connections between this user and other connected users
+      #e.load_connections temp_token.access_token
+
       #return the token and user.
       return temp_token
 
@@ -147,5 +190,6 @@ class TokensController < ApplicationController
     end
 
   end
+
 
 end
