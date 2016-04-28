@@ -4,8 +4,8 @@ This is a ruby on rails web app and restful api for the menu application. It is 
 To get started:
 
 \curl -sSL https://get.rvm.io | bash
-rvm install 2.1.5
-rvm use 2.1.5
+rvm install 2.2.0
+rvm use 2.2.0
 gem install bundler
 git clone [repo]
 cd [repo]
@@ -66,7 +66,7 @@ Commonly Used Example Endpoints:
 --LOGIN:
 Post /tokens
 Params: username, password
-Returns a new Auth Token
+Returns a new Auth Token => ( Including user )
 
 -LOGOUT:
 Get /tokens/logout
@@ -75,7 +75,7 @@ Returns: Success
 
 -GET A USER:
 Get /users/[user_id]
-Returns: User => ( including following_menu_items, following_restaurants)
+Returns: User => ( including favorite_spots)
 Auth required
 
 -SIGNUP:
@@ -83,55 +83,55 @@ Post /users
 Params: a user object including a password_confirmation field that matches the password field
 Returns: Access Token => (including User )
 
--LIST Questions
-Get /questions
-Returns an array of all questions -> ( includes comments -> (includes user) )
+-LIST Spots
+Get /Spot
+Returns an array of all spot -> ( includes comments -> (includes user) )
 
 -GET A Question
-Get /questions/[question_id]
-Returns a question
+Get /spots/[spot_id]
+Returns a spot
 
--COMMENT ON A Question:
-Post /questions/[question_id]/comments
+-COMMENT ON A Spot:
+Post /questions/[spot_id]/comments
 Params: a comment object
 Returns: Newly created comment
 Requires Auth Token
 
--EDIT A Question COMMENT:
+-EDIT A COMMENT:
 Put /comments/[comment_id]
 Params: comment object
 Returns: updated comment
 Requires Auth Token
 
--DELETE A Question COMMENT:
+-DELETE A COMMENT:
 Delete /comments/[comment_id]
 Requires Auth Token
 
 
--RATE A Question:
-Post users/[user_id]/questions/[question_id/ratings
+-RATE A Spot:
+Post users/[user_id]/spot/[spot_id]/ratings
 Params: a rating object
 Returns: Newly created rating
 Requires Auth Token
 
-DELETE A Question RATING:
-Delete /users/[:user_id]/questions/[question_id]/ratings
+DELETE A Spot RATING:
+Delete /users/[:user_id]/spots/[spot_id]/ratings
 Requires Auth Token
 
--EDIT A Question RATING:
-Put /users/[user_id]/questions/[question)id/ratings
+-EDIT A Spot RATING:
+Put /users/[user_id]/spots/[spot_id]/ratings
 Params: a rating object
 Returns: Newly created rating
 Requires Auth Token
 
--FOLLOW A Question:
-Post /users/[user_id]/questions/[questions_id]/relationships
+-FOLLOW A Spot:
+Post /users/[user_id]/spots/[spot_id]/relationships
 Params: {}
 Returns: new relationship object
 Requires Auth Token
 
--UNFOLLOW A Question
-Delete /users/[:user_id]/questions/[question_id]/relationships
+-UNFOLLOW A Spot
+Delete /users/[:user_id]/spots/[spot_id]/relationships
 Params: none
 Returns "Success"
 Requires Auth Token
