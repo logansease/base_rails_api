@@ -47,7 +47,7 @@ You will need to throw a ?format=json or a format type header of application/jso
 AUTHENTICATED REQUESTS:
 Once logged in, when performing authenticated requests, pass in an access_token parameter.
 You may also pass an "Authorization" header with "Bearer [access token]"
-For 3rd party auth requests, Pass in a "Provider [provider name]" heeader.
+For 3rd party auth requests, Pass in a "Provider [provider name]" header.
 
 NESTED RESOURCES:
 Some resources are defined as nested resources in routes.rb and can be accessed via nested routes, so for example, if a child is a nested resource of a parent, you would do
@@ -85,7 +85,7 @@ Returns: Access Token => (including User )
 
 -LIST Spots
 Get /Spot
-Returns an array of all spot -> ( includes comments -> (includes user) )
+Returns an array of all spots -> ( includes comments -> (includes user) )
 
 -GET A Question
 Get /spots/[spot_id]
